@@ -1,0 +1,13 @@
+discord
+google-search
+google
+pillow
+flask
+tweepy
+requests
+requests-toolbelt
+python-dotenv
+google_images_download
+google-images-download
+imagesoup
+json
