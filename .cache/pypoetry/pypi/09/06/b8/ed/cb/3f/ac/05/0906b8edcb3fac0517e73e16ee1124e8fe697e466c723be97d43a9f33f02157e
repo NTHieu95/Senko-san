@@ -1,0 +1,1 @@
+9999999999{"name": "imagesoup", "version": "0.1.0", "summary": "A Python library designed for quick search and downloading images.", "platform": "", "requires_dist": ["beautifulsoup4>=4.5", "pillow", "requests", "webcolors"], "requires_python": null, "files": [], "_cache_version": "1.0.0"}

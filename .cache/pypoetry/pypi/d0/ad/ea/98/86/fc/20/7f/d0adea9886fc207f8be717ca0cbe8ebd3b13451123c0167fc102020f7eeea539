@@ -1,0 +1,1 @@
+9999999999{"name": "PixivPy", "version": "3.7.0", "summary": "Pixiv API for Python (with 6.x AppAPI supported)", "platform": "", "requires_dist": ["requests (>=2.0)", "requests-toolbelt (>=0.9.1)", "cloudscraper (<1.2.50,>=1.0)"], "requires_python": "", "files": [], "_cache_version": "1.0.0"}

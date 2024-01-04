@@ -1,0 +1,1 @@
+9999999999{"name": "mlc-tools", "version": "0.4.1125", "summary": "A tool to generate and translate C++ code to other languages from one code-base.", "platform": null, "requires_dist": ["PyYaml"], "requires_python": ">=3.6", "files": [], "_cache_version": "1.0.0"}
