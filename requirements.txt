@@ -11,4 +11,4 @@ future>=0.18.2
 googlesearch-python>=1.2
 requests>=2.31.0
 mlc-tools>=0.4.1125
-Pillow=9.4.0
+Pillow==9.4.0
