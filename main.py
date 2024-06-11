@@ -22,6 +22,10 @@ import requests
 import json
 import convert
 
+# Update collections for ffmpeg
+import collections
+collections.Iterable = collections.abc.Iterable
+
 from googlesearch import search
 # except ImportError:
 #     print("No module named 'google' found")
