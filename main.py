@@ -522,7 +522,7 @@ async def on_message(message):
                 files = [f"ugoira/extracted/{file}" for file in os.listdir("ugoira/extracted/")]
                 print(files)
                 images = [imageio.v2.imread(file) for file in files]
-                imageio.mimsave('movie.gif', images, fps=delay)
+                imageio.mimsave('movie.gif', images, duration=delay)
 
                 # (ffmpeg.input('ugoira/extracted/*.jpg',
                 #               pattern_type='glob',
