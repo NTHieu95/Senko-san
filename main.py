@@ -520,9 +520,10 @@ async def on_message(message):
                     zip_ref.extractall("ugoira/extracted/")
 
                 files = [f"ugoira/extracted/{file}" for file in os.listdir("ugoira/extracted/")]
+                files.sort()
                 print(files)
                 images = [imageio.v2.imread(file) for file in files]
-                imageio.mimsave('movie.gif', images, duration=delay)
+                imageio.mimsave('movie.gif', images, duration=delay/1000)
 
                 # (ffmpeg.input('ugoira/extracted/*.jpg',
                 #               pattern_type='glob',
