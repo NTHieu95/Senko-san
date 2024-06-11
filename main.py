@@ -519,16 +519,16 @@ async def on_message(message):
                 with zipfile.ZipFile("ugoira/file", 'r') as zip_ref:
                     zip_ref.extractall("ugoira/extracted/")
 
-                # files = [f"ugoira/extracted/{file}" for file in os.listdir("ugoira/extracted/")]
-                # files.sort()
-                # print(files)
-                # images = [imageio.v2.imread(file) for file in files]
-                # imageio.mimsave('movie.gif', images, duration=delay/1000)
+                files = [f"ugoira/extracted/{file}" for file in os.listdir("ugoira/extracted/")]
+                files.sort()
+                print(files)
+                images = [imageio.v2.imread(file) for file in files]
+                imageio.mimsave('movie.gif', images, duration=delay/1000)
 
-                (ffmpeg.input('ugoira/extracted/*.jpg',
-                              pattern_type='glob',
-                              framerate=1000 /
-                              delay).output('movie.gif').run())
+                # (ffmpeg.input('ugoira/extracted/*.jpg',
+                #               pattern_type='glob',
+                #               framerate=1000 /
+                #               delay).output('movie.gif').run())
 
                 
                 files = glob.glob('ugoira/**/**')
