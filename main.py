@@ -510,7 +510,7 @@ async def on_message(message):
                 print(ugoira_result.ugoira_metadata.zip_urls)
                 delay = int(ugoira_result.ugoira_metadata.frames[0].delay)
                 ugoira_stream = requests.get(
-                    ugoira_result.ugoira_metadata.zip_urls.medium,
+                    ugoira_result.ugoira_metadata.zip_urls.original,
                     headers={'Referer': 'https://app-api.pixiv.net/'},
                     stream=True)
                 ugoira_file = io.BytesIO(ugoira_stream.content)
