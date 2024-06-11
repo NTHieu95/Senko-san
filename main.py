@@ -505,8 +505,8 @@ async def on_message(message):
             illust = json_result.illust
             if (illust.type == "ugoira"):
                 await message.channel.send("Đang đọc video nanoja...")
-                if os.path.isfile('movie.webm'):
-                    os.remove("movie.webm")
+                if os.path.isfile('movie.gif'):
+                    os.remove("movie.gif")
                 print(ugoira_result.ugoira_metadata.zip_urls.medium)
                 delay = int(ugoira_result.ugoira_metadata.frames[0].delay)
                 ugoira_stream = requests.get(
