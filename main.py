@@ -508,6 +508,7 @@ async def on_message(message):
                 if os.path.isfile('movie.gif'):
                     os.remove("movie.gif")
                 print(ugoira_result.ugoira_metadata.zip_urls)
+                await message.channel.send(ugoira_result.ugoira_metadata.zip_urls)
                 delay = int(ugoira_result.ugoira_metadata.frames[0].delay)
                 ugoira_stream = requests.get(
                     ugoira_result.ugoira_metadata.zip_urls.original,
