@@ -525,14 +525,14 @@ async def on_message(message):
                 (ffmpeg.input('ugoira/extracted/*.jpg',
                               pattern_type='glob',
                               framerate=1000 /
-                              delay).output('movie.webm').run())
+                              delay).output('movie.gif').run())
 
                 # imageio.mimwrite('movie.gif', images, fps=delay)
                 files = glob.glob('ugoira/**/**')
                 for f in files:
                     os.remove(f)
 
-                await message.channel.send(file=discord.File("movie.webm"))
+                await message.channel.send(file=discord.File("movie.gif"))
             else:
                 print(illust)
                 if (illust.page_count == 1):
