@@ -507,11 +507,11 @@ async def on_message(message):
                 await message.channel.send("Đang đọc video nanoja...")
                 if os.path.isfile('movie.gif'):
                     os.remove("movie.gif")
-                print(ugoira_result.ugoira_metadata.zip_urls)
-                await message.channel.send(ugoira_result)
+                print(ugoira_result)
+                await message.channel.send(ugoira_result.ugoira_metadata)
                 delay = int(ugoira_result.ugoira_metadata.frames[0].delay)
                 ugoira_stream = requests.get(
-                    ugoira_result.ugoira_metadata.zip_urls.original,
+                    ugoira_result.ugoira_metadata.zip_urls.medium,
                     headers={'Referer': 'https://app-api.pixiv.net/'},
                     stream=True)
                 ugoira_file = io.BytesIO(ugoira_stream.content)
