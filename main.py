@@ -519,15 +519,17 @@ async def on_message(message):
                 with zipfile.ZipFile("ugoira/file", 'r') as zip_ref:
                     zip_ref.extractall("ugoira/extracted/")
 
-                # files = [f"ugoira/extracted/{file}" for file in os.listdir("ugoira/extracted/")]
-                # print(files)
-                # images = [imageio.imread(file) for file in files]
-                (ffmpeg.input('ugoira/extracted/*.jpg',
-                              pattern_type='glob',
-                              framerate=1000 /
-                              delay).output('movie.gif').run())
+                files = [f"ugoira/extracted/{file}" for file in os.listdir("ugoira/extracted/")]
+                print(files)
+                images = [imageio.imread(file) for file in files]
+                imageio.mimwrite('movie.gif', images, fps=delay)
+                
+                # (ffmpeg.input('ugoira/extracted/*.jpg',
+                #               pattern_type='glob',
+                #               framerate=1000 /
+                #               delay).output('movie.gif').run())
 
-                # imageio.mimwrite('movie.gif', images, fps=delay)
+                
                 files = glob.glob('ugoira/**/**')
                 for f in files:
                     os.remove(f)
