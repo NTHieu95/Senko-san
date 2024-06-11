@@ -20,6 +20,7 @@ googlesearch-python = "^1.2"
 requests = "^2.31.0"
 mlc-tools = "^0.4.1125"
 Pillow = "9.4.0"
+webcolors = "1.5"
 [tool.poetry.dev-dependencies]
 
 [build-system]
