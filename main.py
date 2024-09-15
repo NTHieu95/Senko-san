@@ -21,6 +21,7 @@ from pixivpy3 import *
 import requests
 import json
 import convert
+import urllib
 
 from dotenv import load_dotenv, dotenv_values 
 
@@ -489,10 +490,10 @@ async def on_message(message):
 
             pixiv_api = AppPixivAPI()
             #-------- try to bypass cloudflare captcha
-            pixiv_api = ByPassSniApi()  # Same as AppPixivAPI, but bypass the GFW
-            pixiv_api.require_appapi_hosts(hostname="public-api.secure.pixiv.net")
-            # api.set_additional_headers({'Accept-Language':'en-US'})
-            pixiv_api.set_accept_language('en-us')
+            # pixiv_api = ByPassSniApi()  # Same as AppPixivAPI, but bypass the GFW
+            # pixiv_api.require_appapi_hosts(hostname="public-api.secure.pixiv.net")
+            # # api.set_additional_headers({'Accept-Language':'en-US'})
+            # pixiv_api.set_accept_language('en-us')
             #-----------------------------------------
             # pixiv_api.login(pixiv_login,pixiv_password)
             # pixiv_api.auth(
@@ -518,11 +519,17 @@ async def on_message(message):
                 #print(ugoira_result)
                 # await message.channel.send(ugoira_result.ugoira_metadata)
                 delay = int(ugoira_result.ugoira_metadata.frames[0].delay)
-                ugoira_stream = requests.get(
-                    ugoira_result.ugoira_metadata.zip_urls.medium,
-                    headers={'Referer': 'https://app-api.pixiv.net/'},
-                    stream=True)
-                ugoira_file = io.BytesIO(ugoira_stream.content)
+                # ugoira_stream = requests.get(
+                #     ugoira_result.ugoira_metadata.zip_urls.medium,
+                #     headers={'referer': 'https://app-api.pixiv.net/'},
+                #     stream=True)
+                # ugoira_file = io.BytesIO(ugoira_stream.content)
+                # 2024/9/16: change to urllib because requests somehow could not use Referer
+                ugoira_stream = urllib.request.Request(url)
+                ugoira_stream.add_header('Referer', 'https://www.pixiv.net/')
+                ugoira_file = urllib.request.urlopen(ugoira_stream).read()
+                pixiv_image_rsp_fp = io.BytesIO(ugoira_file)
+
                 with open("ugoira/file", "wb") as f:
                     f.write(ugoira_file.getbuffer())
                 with zipfile.ZipFile("ugoira/file", 'r') as zip_ref:
@@ -546,7 +553,7 @@ async def on_message(message):
 
                 await message.channel.send(file=discord.File("movie.gif"))
             else:
-                #print(illust)
+                print(illust)
                 if (illust.page_count == 1):
                     url = illust.meta_single_page['original_image_url']
                 else:
@@ -554,13 +561,19 @@ async def on_message(message):
                                                str(illust.page_count) +
                                                " ảnh nanoja!")
                     url = illust.meta_pages[0].image_urls['original']
-                pixiv_image_rsp = requests.get(
-                    url,
-                    headers={'Referer': 'https://app-api.pixiv.net/'},
-                    stream=True)
-                pixiv_image_rsp_fp = io.BytesIO(pixiv_image_rsp.content)
+                # pixiv_image_rsp = requests.get(
+                #     url,
+                #     headers={'referer': 'https://www.pixiv.net/'},
+                #     stream=True)
+                # pixiv_image_rsp_fp = io.BytesIO(pixiv_image_rsp.content)
+                # 2024/9/16: change to urllib because requests somehow could not use Referer
+                pixiv_image_rsp = urllib.request.Request(url)
+                pixiv_image_rsp.add_header('Referer', 'https://www.pixiv.net/')
+                r = urllib.request.urlopen(pixiv_image_rsp).read()
+                pixiv_image_rsp_fp = io.BytesIO(r)
                 # Add file name to stream
-                # print(illust)
+                print(url)
+                print(pixiv_image_rsp)
 
                 if pixiv_image_rsp_fp.getbuffer().nbytes >= 25*1024*1024:
                     await message.channel.send(
@@ -569,12 +582,16 @@ async def on_message(message):
                         url = illust.image_urls['large']
                     else:
                         url = illust.meta_pages[0].image_urls['large']
-
-                    pixiv_image_rsp = requests.get(
-                        url,
-                        headers={'Referer': 'https://app-api.pixiv.net/'},
-                        stream=True)
-                    pixiv_image_rsp_fp = io.BytesIO(pixiv_image_rsp.content)
+                    # pixiv_image_rsp = requests.get(
+                    #     url,
+                    #     headers={'referer': 'https://www.pixiv.net/'},
+                    #     stream=True)
+                    # pixiv_image_rsp_fp = io.BytesIO(pixiv_image_rsp.content)
+                    # 2024/9/16: change to urllib because requests somehow could not use Referer
+                    pixiv_image_rsp = urllib.request.Request(url)
+                    pixiv_image_rsp.add_header('Referer', 'https://www.pixiv.net/')
+                    r = urllib.request.urlopen(pixiv_image_rsp).read()
+                    pixiv_image_rsp_fp = io.BytesIO(r)
                     pixiv_image_rsp_fp.name = url.rsplit('/', 1)[-1]
                     await message.channel.send(
                         file=discord.File(pixiv_image_rsp_fp))
