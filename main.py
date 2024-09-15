@@ -22,6 +22,10 @@ import requests
 import json
 import convert
 
+from dotenv import load_dotenv, dotenv_values 
+
+load_dotenv() 
+
 # Update collections for ffmpeg
 import collections
 collections.Iterable = collections.abc.Iterable
@@ -485,14 +489,18 @@ async def on_message(message):
 
             pixiv_api = AppPixivAPI()
             #-------- try to bypass cloudflare captcha
-            # pixiv_api = ByPassSniApi()  # Same as AppPixivAPI, but bypass the GFW
-            # pixiv_api.require_appapi_hosts(hostname="public-api.secure.pixiv.net")
-            # # api.set_additional_headers({'Accept-Language':'en-US'})
-            # pixiv_api.set_accept_language('en-us')
+            pixiv_api = ByPassSniApi()  # Same as AppPixivAPI, but bypass the GFW
+            pixiv_api.require_appapi_hosts(hostname="public-api.secure.pixiv.net")
+            # api.set_additional_headers({'Accept-Language':'en-US'})
+            pixiv_api.set_accept_language('en-us')
             #-----------------------------------------
             # pixiv_api.login(pixiv_login,pixiv_password)
+            # pixiv_api.auth(
+            #     refresh_token="_1JHDMEvgzwkY8UhlexskYYyNLITfgZCASwDhTTaeaE")
+
             pixiv_api.auth(
                 refresh_token="_1JHDMEvgzwkY8UhlexskYYyNLITfgZCASwDhTTaeaE")
+
             # await message.channel.send('debuging...')
             # api = AppPixivAPI()
             # api.login("son.vuhuu18@gmail.com","Chicothe123")
@@ -507,7 +515,7 @@ async def on_message(message):
                 await message.channel.send("Đang đọc video nanoja...")
                 if os.path.isfile('movie.gif'):
                     os.remove("movie.gif")
-                print(ugoira_result)
+                #print(ugoira_result)
                 # await message.channel.send(ugoira_result.ugoira_metadata)
                 delay = int(ugoira_result.ugoira_metadata.frames[0].delay)
                 ugoira_stream = requests.get(
@@ -538,7 +546,7 @@ async def on_message(message):
 
                 await message.channel.send(file=discord.File("movie.gif"))
             else:
-                print(illust)
+                #print(illust)
                 if (illust.page_count == 1):
                     url = illust.meta_single_page['original_image_url']
                 else:
