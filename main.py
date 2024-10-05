@@ -607,7 +607,7 @@ async def on_message(message):
             '//twitter.com/') >= 0 or message.content.lower().find('//x.com/') >= 0):
 
             mess = message.content
-            
+            await message.delete()
             if mess.find('//twitter.com/') >= 0:
                 mess = mess.replace('//twitter.com/', '//vxtwitter.com/')
             else:
@@ -650,7 +650,8 @@ async def on_message(message):
             #                         break
             #             else:
             #                 count = count + 1
-            await message.channel.send(mess)
+            mem = await message.author.guild.fetch_member(message.author.id)
+            await message.channel.send('Sent by ' + mem.nick +' ('+ message.author.global_name + '):' +'\n'+ mess)
         #Weather forecast
         if message.content.lower().find(".w ") == 0:
             w_api = "e0c439c2a3fb825f966d3abdc9a6c19d"
