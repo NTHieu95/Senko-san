@@ -651,7 +651,10 @@ async def on_message(message):
             #             else:
             #                 count = count + 1
             mem = await message.author.guild.fetch_member(message.author.id)
-            await message.channel.send('Sent by ' + mem.nick +' ('+ message.author.global_name + '):' +'\n'+ mess)
+            if mem.nick is  None:
+                await message.channel.send('Sent by ' + message.author.global_name + ':' +'\n'+ mess)
+            else:
+                await message.channel.send('Sent by ' + mem.nick +' ('+ message.author.global_name + '):' +'\n'+ mess)
         #Weather forecast
         if message.content.lower().find(".w ") == 0:
             w_api = "e0c439c2a3fb825f966d3abdc9a6c19d"
