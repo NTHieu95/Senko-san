@@ -73,7 +73,7 @@ setup(
     install_requires=['future'],
     extras_require={
         'dev': [
-            'future==0.17.1',
+            'future==0.18.3',
             'numpy==1.16.4',
             'pytest-mock==1.10.4',
             'pytest==4.6.1',
